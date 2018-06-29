@@ -19,6 +19,35 @@ public class MemberDao {
 		}
 		return dao;
 	}
+	//회원 한명의 정보를 수정하는 메소드
+	public boolean update(MemberDto dto) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		int flag=0;
+		try {
+			conn=new DBConnect().getConn();
+			String sql="UPDATE member SET name=?,addr=?"
+					+ " WHERE num=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getAddr());
+			pstmt.setInt(3, dto.getNum());
+			flag=pstmt.executeUpdate();
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e) {}
+		}
+		if(flag>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	//회원 한명의 정보를 리턴하는 메소드
 	public MemberDto getData(int num) {
 		Connection conn=null;

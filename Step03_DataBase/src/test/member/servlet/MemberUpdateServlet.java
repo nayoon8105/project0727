@@ -12,17 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import test.member.dao.MemberDao;
 import test.member.dto.MemberDto;
 
-@WebServlet("/member/updateform")
-public class MemberUpdateformServlet extends HttpServlet{
+@WebServlet("/member/update")
+public class MemberUpdateServlet extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		//수정할 회원의 번호를 읽어온다.
+		//전송되는 한글 깨지지 않도록 
+		request.setCharacterEncoding("utf-8");
+		//폼 전송되는 수정할 회원의 정보를 읽어온다.
 		int num=Integer.parseInt(request.getParameter("num"));
-		//DB 에서 수정할 회원의 정보를 얻어온다.
+		String name=request.getParameter("name");
+		String addr=request.getParameter("addr");
+		//MemberDto 객체에 회원의 정보를 담고
+		MemberDto dto=new MemberDto(num, name, addr);
+		//DB 에 수정 반영하고
 		MemberDao dao=MemberDao.getInstance();
-		MemberDto dto=dao.getData(num);
-		//수정할 회원의 정보를 응답한다.
+		dao.update(dto);
+		//응답한다.
 		//응답 인코딩 설정
 		response.setCharacterEncoding("utf-8");
 		//응답 컨텐츠 설정
@@ -34,23 +40,18 @@ public class MemberUpdateformServlet extends HttpServlet{
 		pw.println("<html>");
 		pw.println("<head>");
 		pw.println("<meta charset='utf-8'/>");
-		pw.println("<title>회원정보 수정 페이지</title>");
+		pw.println("<title>회원정보 수정결과</title>");
 		pw.println("</head>");
 		pw.println("<body>");
-		pw.println("<h3>수정할 회원의 정보 입니다</h3>");
-		pw.println("<form action='update' method='post'>");
-		pw.println("<input type='hidden' name='num' value='"+dto.getNum()+"' />");
-		pw.println("번호 <input type='text' value='"+dto.getNum()+"' disabled/><br/>");
-		pw.println("이름 <input type='text' name='name' value='"+dto.getName()+"' /><br/>");
-		pw.println("주소 <input type='text' name='addr' value='"+dto.getAddr()+"' /><br/>");
-		pw.println("<button type='submit'>수정확인</button> ");
-		pw.println("</form>");
+		pw.println("<script>");
+		pw.println("alert('회원정보를 수정했습니다.');");
+		pw.println("location.href='list';");
+		pw.println("</script>");
 		pw.println("</body>");
 		pw.println("</html>");
 		pw.close();
 	}
 }
-
 
 
 
