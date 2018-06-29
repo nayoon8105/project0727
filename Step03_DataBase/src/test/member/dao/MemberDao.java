@@ -19,6 +19,64 @@ public class MemberDao {
 		}
 		return dao;
 	}
+	//회원 한명의 정보를 리턴하는 메소드
+	public MemberDto getData(int num) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		MemberDto dto=null;
+		try {
+			conn=new DBConnect().getConn();
+			String sql="SELECT name, addr FROM member"
+					+ " WHERE num=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				//MemberDto 객체를 생성해서 회원 정보를 담는다. 
+				dto=new MemberDto();
+				dto.setNum(num);
+				dto.setName(rs.getString("name"));
+				dto.setAddr(rs.getString("addr"));
+			}
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e) {}
+		}
+		return dto;
+	}
+	
+	//회원 정보를 삭제하는 메소드
+	public boolean delete(int num) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		int flag=0;
+		try {
+			conn=new DBConnect().getConn();
+			String sql="DELETE FROM member WHERE num=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			flag=pstmt.executeUpdate();
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e) {}
+		}
+		if(flag>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	//회원 정보를 저장하는 메소드
 	public boolean insert(MemberDto dto) {
 		Connection conn=null;
