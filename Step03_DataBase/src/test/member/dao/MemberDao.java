@@ -3,6 +3,7 @@ package test.member.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,34 @@ public class MemberDao {
 		}
 		return dao;
 	}
+	//회원 정보를 저장하는 메소드
+	public boolean insert(MemberDto dto) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		int flag=0;
+		try {
+			conn=new DBConnect().getConn();
+			String sql="INSERT INTO member (num,name,addr)"
+					+ " VALUES(MEMBER_SEQ.NEXTVAL, ?, ?)";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getAddr());
+			flag=pstmt.executeUpdate();
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e) {}
+		}
+		if(flag>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	public List<MemberDto> getList(){
 		//필요한 객체를 담을 지역변수 만들기
 		Connection conn=null;
