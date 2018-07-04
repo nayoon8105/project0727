@@ -97,7 +97,8 @@ public class BoardDao {
 		try {
 			conn = new DbcpBean().getConn();
 			//실행할 select 문 
-			String sql = "SELECT num,writer,title,content,regdate"
+			String sql = "SELECT num,writer,title,content,"
+					+ "TO_CHAR(regdate,'YYYY.MM.DD AM HH:MI') regdate"
 					+ " FROM board_guest"
 					+ " WHERE num=?";
 			pstmt = conn.prepareStatement(sql);
@@ -175,7 +176,8 @@ public class BoardDao {
 		try {
 			conn = new DbcpBean().getConn();
 			//실행할 select 문 
-			String sql = "SELECT num,writer,title,content,regdate"
+			String sql = "SELECT num,writer,title,content,"
+					+ "TO_CHAR(regdate,'YYYY.MM.DD AM HH:MI') regdate"
 					+ " FROM board_guest"
 					+ " ORDER BY num DESC";
 			pstmt = conn.prepareStatement(sql);
