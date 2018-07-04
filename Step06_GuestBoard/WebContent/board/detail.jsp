@@ -39,6 +39,16 @@
 		<td><%=dto.getRegdate() %></td>
 	</tr>
 </table>
+<a href="updateform.jsp?num=<%=dto.getNum() %>">수정</a>
+<a href="javascript:deleteCheck()">삭제</a>
+<script>
+	function deleteCheck(){
+		var isDelete=confirm("글을 삭제 하시겠습니까?");
+		if(isDelete){
+			location.href="delete.jsp?num=<%=dto.getNum() %>";
+		}
+	}
+</script>
 </body>
 </html>
 
