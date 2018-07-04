@@ -19,6 +19,50 @@ public class BoardDao {
 		}
 		return dao;
 	}
+	//글 하나의 정보를 리턴하는 메소드
+	public BoardDto getData(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		//select 된 결과를 담을 지역변수 만들기 
+		BoardDto dto=null;
+		try {
+			conn = new DbcpBean().getConn();
+			//실행할 select 문 
+			String sql = "SELECT num,writer,title,content,regdate"
+					+ " FROM board_guest"
+					+ " WHERE num=?";
+			pstmt = conn.prepareStatement(sql);
+			//? 에 값 바인딩 
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			//반복문 돌면서 ResultSet 에 있는 내용 추출 
+			while (rs.next()) {
+				dto=new BoardDto();
+				dto.setNum(rs.getInt("num"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setRegdate(rs.getString("regdate"));
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		//BoardDto 객체 리턴해주기 
+		return dto;
+	}
+	
+	
 	//글정보 저장하는 메소드
 	public boolean insert(BoardDto dto) {
 		Connection conn=null;
