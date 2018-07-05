@@ -7,7 +7,7 @@
 	request.setCharacterEncoding("utf-8");
 	String id=request.getParameter("id");
 	String pwd=request.getParameter("pwd");
-	String email=request.getParameter("emai");
+	String email=request.getParameter("email");
 	//DB 에 저장하고
 	UsersDto dto=new UsersDto();
 	dto.setId(id);

@@ -20,13 +20,15 @@
 %>
 <h3>인덱스 페이지 입니다.</h3>
 <%if(id!=null){ %>
-	<p> <strong><%=id %></strong> 님 로그인중...</p>
+	<p> <strong><a href="users/private/info.jsp"><%=id %></a></strong> 님 로그인중...</p>
 	<a href="users/logout.jsp">로그아웃</a>
 <%} %>
 <ul>
 	<li><a href="users/signup_form.jsp">회원가입</a></li>
 	<li><a href="users/loginform.jsp?url=<%=cPath%>/index.jsp">로그인</a></li>
 	<li><a href="market/buy.jsp">상품 구입</a></li>
+	<li><a href="market/buy2.jsp">상품 구입2</a></li>
+	<li><a href="market/buy3.jsp">상품 구입3</a></li>
 </ul>
 </body>
 </html>
