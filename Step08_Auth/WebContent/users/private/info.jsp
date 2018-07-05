@@ -39,6 +39,7 @@
 		</tr>
 	</tbody>
 </table>
+<a href="updateform.jsp">회원정보 수정</a>
 <a href="javascript:deleteConfirm()">회원 탈퇴</a>
 <script>
 	function deleteConfirm(){
