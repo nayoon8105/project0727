@@ -29,7 +29,7 @@ public class LoginFilter implements Filter{//1.
 		// TODO Auto-generated method stub
 		
 	}
-
+	//필터가 동작될때 호출되는 메소드 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, 
 			FilterChain chain)

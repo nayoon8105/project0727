@@ -18,6 +18,43 @@ public class UsersDao {
 		}
 		return dao;
 	}
+	//인자로 전달되는 아이디가 사용가능한지 여부를 리턴해주는 메소드
+	public boolean canUseId(String inputId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		//select 된 결과를 담을 지역변수 만들기 
+		boolean canUse=true;
+		try {
+			conn = new DbcpBean().getConn();
+			//실행할 select 문 
+			String sql = "SELECT * FROM users WHERE id=?";
+			pstmt = conn.prepareStatement(sql);
+			//? 에 값 바인딩 
+			pstmt.setString(1, inputId);
+			rs = pstmt.executeQuery();
+			// select 된 row 가 있으면
+			if (rs.next()) {
+				//이미 존재하는 아이디 임으로 사용불가 
+				canUse=false;
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		//사용가능 여부를 리턴
+		return canUse;
+	}
+	
 	//회원 정보를 수정하는 메소드
 	public boolean update(UsersDto dto) {
 		Connection conn = null;
