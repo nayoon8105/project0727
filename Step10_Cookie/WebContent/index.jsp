@@ -12,6 +12,7 @@
 	<li><a href="test1/cookie_form.jsp">테스트1</a></li>
 	<li><a href="test2/cookie_form.jsp">테스트2</a></li>
 	<li><a href="test3/popup.html">팝업 테스트</a></li>
+	<li><a href="test4/popup.jsp">팝업 테스트2</a></li>
 </ul>
 </body>
 </html>
