@@ -8,6 +8,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
 </head>
 <body>
+<%
+	request.setAttribute("thisPage", "game");
+%>
 <jsp:include page="navbar.jsp"/>
 <div class="container">
 	<h1>Game</h1>

@@ -14,6 +14,7 @@
 	<li><a href="test3/main.jsp">Include 디렉티브3</a></li>
 	<li><a href="test4/main.jsp">jsp Include</a></li>
 	<li><a href="test5/home.jsp">jsp Include 예제</a></li>
+	<li><a href="test6/home.jsp">jsp Include 예제2</a></li>
 </ul>
 </body>
 </html>

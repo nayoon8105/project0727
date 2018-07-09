@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	// request 에 "thisPage" 라는 키값으로 담긴 문자열을 읽어온다.
-	String thisPage=(String)request.getAttribute("thisPage");
+	// navbar.jsp 페이지를 include 하면서 전달된 파라미터를 읽어온다.
+	String thisPage=request.getParameter("thisPage");
 %>
 <%if(thisPage.equals("home")){ %>
 	<div class="navbar navbar-inverse">
