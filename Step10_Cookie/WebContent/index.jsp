@@ -13,6 +13,7 @@
 	<li><a href="test2/cookie_form.jsp">테스트2</a></li>
 	<li><a href="test3/popup.html">팝업 테스트</a></li>
 	<li><a href="test4/popup.jsp">팝업 테스트2</a></li>
+	<li><a href="test5/loginform.jsp">로그인 하기</a></li>
 </ul>
 </body>
 </html>
