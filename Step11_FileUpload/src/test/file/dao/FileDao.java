@@ -19,6 +19,38 @@ public class FileDao {
 		}
 		return dao;
 	}
+	//인자로 전달하는 파일정보를 DB 에서 삭제하는 메소드
+	public boolean delete(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int flag = 0;
+		try {
+			conn = new DbcpBean().getConn();
+			//실행할 sql 문 작성하기
+			String sql = "DELETE FROM board_file"
+					+ " WHERE num=?";
+			pstmt = conn.prepareStatement(sql);
+			//? 에 바인딩할 내용 결정하기 
+			pstmt.setInt(1, num);
+			flag = pstmt.executeUpdate();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		if (flag > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	//파일 다운로드 횟수를 증가 시키는 메소드
 	public boolean addDownCount(int num) {
 		Connection conn = null;

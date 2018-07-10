@@ -19,10 +19,14 @@
 	if(id==null){// NullPointerException 방지 
 		id="";
 	}
+	
+	String cPath=request.getContextPath();
 %>
 <div class="container">
 	<%if(id!=null && !id.equals("")) {%>
-	<p><strong><%=id %></strong> 로그인중... </p>
+		<p><strong><%=id %></strong> 로그인중... </p>
+	<%}else{ %>
+		<a href="<%=cPath%>/users/loginform.jsp">로그인</a>
 	<%} %>
 	<a href="private/upload_form.jsp">새파일 업로드</a>
 	<h3>파일 목록 입니다.</h3>
