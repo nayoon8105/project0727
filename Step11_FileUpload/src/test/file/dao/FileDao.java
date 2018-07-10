@@ -19,6 +19,86 @@ public class FileDao {
 		}
 		return dao;
 	}
+	//파일 다운로드 횟수를 증가 시키는 메소드
+	public boolean addDownCount(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int flag = 0;
+		try {
+			conn = new DbcpBean().getConn();
+			//실행할 sql 문 작성하기
+			String sql = "UPDATE board_file"
+					+ " SET downCount=downCount+1"
+					+ " WHERE num=?";
+			pstmt = conn.prepareStatement(sql);
+			//? 에 바인딩할 내용 결정하기 
+			pstmt.setInt(1, num);
+			flag = pstmt.executeUpdate();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		if (flag > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	//파일 하나의 정보를 리턴해주는 메소드
+	public FileDto getData(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		//select 된 결과를 담을 지역변수 만들기 
+		FileDto dto=null;
+		try {
+			conn = new DbcpBean().getConn();
+			//실행할 select 문 
+			String sql = "SELECT writer,title,orgFileName,"
+					+ "saveFileName,downCount,fileSize,regdate"
+					+ " FROM board_file"
+					+ " WHERE num=?";
+			pstmt = conn.prepareStatement(sql);
+			//? 에 값 바인딩 
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			//반복문 돌면서 ResultSet 에 있는 내용 추출 
+			while (rs.next()) {
+				dto=new FileDto();
+				dto.setNum(num);
+				dto.setWriter(rs.getString("writer"));
+				dto.setTitle(rs.getString("title"));
+				dto.setOrgFileName(rs.getString("orgFileName"));
+				dto.setSaveFileName(rs.getString("saveFileName"));
+				dto.setDownCount(rs.getInt("downCount"));
+				dto.setFileSize(rs.getLong("fileSize"));
+				dto.setRegdate(rs.getString("regdate"));
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+			}
+		}
+		return dto;
+	}//getData()
+	
+	
 	//파일 정보를 저장하는 메소드
 	public boolean insert(FileDto dto) {
 		Connection conn = null;

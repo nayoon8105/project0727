@@ -9,6 +9,7 @@
 <body>
 <h3>인덱스 페이지 입니다.</h3>
 <ul>
+	<li><a href="users/signup_form.jsp">회원가입</a></li>
 	<li><a href="file/list.jsp">자료실</a></li>
 </ul>
 </body>
