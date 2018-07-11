@@ -23,6 +23,7 @@
 	<li><a href="gallery/list.jsp">사진 겔러리</a></li>
 	<li><a href="ajax/loginform.jsp">ajax 로그인</a></li>
 	<li><a href="ajax2/loginform.jsp">ajax 로그인2</a></li>
+	<li><a href="ajax3/upload_form.jsp">ajax 파일 업로드</a></li>
 </ul>
 </body>
 </html>
