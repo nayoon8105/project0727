@@ -11,9 +11,17 @@
 <body>
 <h3>dropzone js 테스트</h3>
 <form action="upload.jsp" method="post" 
-	class="dropzone" id="myForm">
+	class="dropzone" id="myForm" enctype="multipart/form-data">
 	<input type="file" name="myFile"/>
 </form>
+<script>
+	Dropzone.options.myForm={
+		paramName:"myFile",
+		success:function(file, responseData){
+			console.log(responseData);
+		}	
+	};
+</script>
 </body>
 </html>
 
