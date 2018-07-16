@@ -1,8 +1,11 @@
 package test.controller;
 
+import test.member.action.MemberDeleteAction;
 import test.member.action.MemberInsertAction;
 import test.member.action.MemberInsertformAction;
 import test.member.action.MemberListAction;
+import test.member.action.MemberUpdateAction;
+import test.member.action.MemberUpdateformAction;
 
 public class UserActionFactory {
 	private static UserActionFactory factory;
@@ -29,6 +32,15 @@ public class UserActionFactory {
 		}else if(command.equals("/member/insert")) {
 			//회원 추가 요청 처리 
 			action=new MemberInsertAction();
+		}else if(command.equals("/member/delete")) {
+			//회원 삭제 요청 처리
+			action=new MemberDeleteAction();
+		}else if(command.equals("/member/updateform")) {
+			//회원 수정 폼 요청 처리
+			action=new MemberUpdateformAction();
+		}else if(command.equals("/member/update")) {
+			//회원 정보 수정 반영 요청 처리
+			action=new MemberUpdateAction();
 		}
 		
 		return action;
