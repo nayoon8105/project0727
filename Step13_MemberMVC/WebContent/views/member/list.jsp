@@ -14,6 +14,7 @@
 	List<MemberDto> list=(List<MemberDto>)
 						request.getAttribute("list");
 %>
+<a href="insertform.do">회원 추가</a>
 <h3>회원 목록입니다.</h3>
 <table>
 	<thead>
@@ -21,6 +22,7 @@
 			<th>번호</th>
 			<th>이름</th>
 			<th>주소</th>
+			<th>삭제</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -29,6 +31,7 @@
 			<td><%=tmp.getNum() %></td>
 			<td><%=tmp.getName() %></td>
 			<td><%=tmp.getAddr() %></td>
+			<td><a href="delete.do?num=<%=tmp.getNum()%>">삭제</a></td>
 		</tr>
 	<%} %>
 	</tbody>

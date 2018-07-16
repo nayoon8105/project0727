@@ -23,7 +23,7 @@ public class ActionServlet extends HttpServlet{
 		//context name 읽어오기
 		String contextName=request.getContextPath();
 		//순수 요청 경로를 추출 한다.
-		// command => /fortune or /info or /signin or /signout 
+		// command => /member/list or /member/insert
 		String command=uri.substring(contextName.length(),
 				uri.length()-INCLUDE_EXTENSION_LENGTH);
 		
