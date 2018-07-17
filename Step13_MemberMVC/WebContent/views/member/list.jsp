@@ -38,6 +38,7 @@
 	<%} %>
 	</tbody>
 </table>
+<a href="<%=request.getContextPath()%>/index.jsp">Home</a>
 </body>
 </html>
 
