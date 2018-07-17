@@ -30,7 +30,8 @@
 <p>myName=<strong>${myName }</strong></p>
 <p>yourName=<strong>${requestScope.yourName }</strong></p>
 <p>yourName=<strong>${yourName }</strong></p>
-<% 
+<% 	
+	// 아래 두줄의 코드는 ${ourName} 으로 대체 할수 있다 
 	String ourName=(String)session.getAttribute("ourName");
 %>
 <p>ourName=<strong><%=ourName %></strong></p>
