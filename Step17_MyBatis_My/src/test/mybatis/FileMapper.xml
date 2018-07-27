@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="file">
+	<!-- 자주 사용하는 sql 문을 미리 정의해 놓기 -->
+		<sql id="fileColumn">
+			num, writer, title, orgfilename, savefilename, filesize, downcount,
+			TO_CHAR(regdate,'YYYY.MM.DD AM HH:MI') AS regdate
+		</sql>
+
+	<insert id="insert" parameterType="test.file.dto.FileDto">
+		INSERT INTO board_file
+		(<include refid="fileColumn"/>)
+		VALUES(board_file_seq.NEXTVAL,#{writer},#{title},#{orgFileName},#{saveFileName},#{fileSize},#{downCount},SYSDATE)
+	</insert> 
+	
+	<delete id="delete" parameterType="int">
+		DELETE 
+		FROM board_file
+		WHERE num=#{num}
+	</delete>
+	
+	<select id="getData" parameterType="int" resultType="fileDto">
+		SELECT <include refid="fileColumn"/> 
+		FROM board_file
+		WHERE num=#{num}
+	</select>
+	
+	<select id="getList" parameterType="test.file.dto.FileDto" resultType="fileDto">
+		<!-- rownum을 부여하기 위해 서브쿼리 이용 -->
+		SELECT *
+		FROM (SELECT result1.*, ROWNUM rnum
+				FROM (SELECT <include refid="fileColumn"/>
+						FROM board_file
+						ORDER BY num DESC) result1
+			)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+		<!-- row를 정렬하고 - 정렬한 row에 rowNum을 붙이고 - 붙인 rowNum을 조건으로 select -->
+	</select>
+	
+	<update id="addDownCount" parameterType="int">
+		UPDATE board_file
+		SET downcount=downcount+1
+		WHERE num=#{num}
+	</update>
+	
+	<select id="getCount" resultType="int">
+	<!-- row가 하나도 없는 경우 rowNum 0 반환 -->
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM board_file
+	</select>
+</mapper>
